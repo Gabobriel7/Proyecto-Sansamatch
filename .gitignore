@@ -1,0 +1,20 @@
+# Ignorar base de datos SQLite
+db.sqlite3
+
+# Ignorar migraciones
+*/migrations/*
+
+# Ignorar carpetas de entornos virtuales
+venv/
+env/
+
+# Ignorar archivos compilados de Python
+*.pyc
+__pycache__/
+
+# Ignorar archivos de configuración locales
+*.env
+
+# Ignorar carpetas y archivos estáticos generados automáticamente
+staticfiles/
+media/

@@ -1,0 +1,6 @@
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Nombre de usuario" required>
+    <input type="password" name="password" placeholder="Contraseña" required>
+    <button type="submit">Iniciar sesión</button>
+</form>

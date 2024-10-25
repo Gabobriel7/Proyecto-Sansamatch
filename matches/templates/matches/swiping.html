@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiping - Sansamatch</title>
+</head>
+<body>
+    <h2>Explora perfiles</h2>
+    {% for perfil in perfiles %}
+        <div>
+            <img src="{{ perfil.foto.url }}" alt="Foto de {{ perfil.username }}" width="150">
+            <p>{{ perfil.username }}</p>
+            <p>{{ perfil.bio }}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="usuario_destino" value="{{ perfil.id }}">
+                <button type="submit">Like</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>
+
+<nav>
+    <a href="{% url 'registro' %}">Registro</a>
+    <a href="{% url 'swiping' %}">Explorar Perfiles</a>
+    <a href="{% url 'crear_grupo' %}">Crear Grupo</a>
+    <a href="{% url 'ver_grupos' %}">Ver Grupos</a>
+    <a href="{% url 'lista_likes' %}">Mis Likes</a>
+</nav>

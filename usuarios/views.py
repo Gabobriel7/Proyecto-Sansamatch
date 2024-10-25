@@ -10,3 +10,7 @@ def registro(request):
     else:
         form = RegistroForm()
     return render(request, 'usuarios/registro.html', {'form': form})
+
+
+def home(request):
+    return render(request, 'usuarios/home.html')

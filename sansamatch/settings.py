@@ -39,10 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'matches',
+    'django_extensions',
 ]
 
 # El modelo del usuario personalizado
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+# Las fotos y cosas así que se suban
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Para volver al home despues del login
+LOGIN_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

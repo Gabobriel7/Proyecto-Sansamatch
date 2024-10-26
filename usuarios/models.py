@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+# Modelo de usuario personalizado que hereda de AbstractUser
 class Usuario(AbstractUser):
     carrera = models.CharField(max_length=100)
     sede = models.CharField(max_length=50)

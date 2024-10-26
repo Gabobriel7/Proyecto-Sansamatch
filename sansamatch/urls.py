@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings  # Importar settings
-from django.conf.urls.static import static  # Importar static
+from django.conf import settings  
+from django.conf.urls.static import static  
 from usuarios.views import home
 
+# Definición de las rutas principales del proyecto
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home, name='home'),  # Página Home
+    path('admin/', admin.site.urls),              # Ruta para el panel de administración
+    path('', home, name='home'),                  # Ruta de la Página Home
     path('usuarios/', include('usuarios.urls')),  # Incluir rutas de la app usuarios
     path('matches/', include('matches.urls')),    # Incluir rutas de la app matches
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+                                                  # Configuración para servir archivos multimedia en desarrollo

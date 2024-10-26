@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# Definición de las rutas (URLs) para la app 'matches'
 urlpatterns = [
     path('swiping/', views.swiping, name='swiping'),             # Ruta para el swiping de perfiles
     path('crear-grupo/', views.crear_grupo, name='crear_grupo'), # Ruta para crear un grupo

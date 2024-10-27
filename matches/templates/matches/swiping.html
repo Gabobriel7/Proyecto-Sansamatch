@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swiping - Sansamatch</title>
-</head>
-<body>
-    <h2>Explora perfiles</h2>
-    {% for perfil in perfiles %}
-        <div>
-            <img src="{{ perfil.foto.url }}" alt="Foto de {{ perfil.username }}" width="150">
-            <p>{{ perfil.username }}</p>
-            <p>{{ perfil.bio }}</p>
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="usuario_destino" value="{{ perfil.id }}">
-                <button type="submit">Like</button>
-            </form>
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% extends 'usuarios/base.html' %}
 
-<nav>
-    <a href="{% url 'registro' %}">Registro</a>
-    <a href="{% url 'swiping' %}">Explorar Perfiles</a>
-    <a href="{% url 'crear_grupo' %}">Crear Grupo</a>
-    <a href="{% url 'ver_grupos' %}">Ver Grupos</a>
-    <a href="{% url 'lista_likes' %}">Mis Likes</a>
-</nav>
+{% block title %}Explorar Perfiles - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Explora Perfiles</h2>
+    <div class="row">
+        {% for perfil in perfiles %}
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-lg">
+                    <img src="{{ perfil.foto.url }}" class="card-img-top" alt="Foto de {{ perfil.username }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ perfil.username }}</h5>
+                        <p class="card-text">{{ perfil.carrera }} - {{ perfil.sede }}</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario_destino" value="{{ perfil.id }}">
+                            <button type="submit" class="btn btn-primary">Like</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

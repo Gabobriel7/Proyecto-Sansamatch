@@ -50,7 +50,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Para volver al home despues del login
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/' 
+
+LOGIN_URL = '/usuarios/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

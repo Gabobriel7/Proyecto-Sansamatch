@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Sansamatch</title>
-</head>
-<body>
-    <h1>¡Bienvenido a Sansamatch!</h1>
-    <p>Conéctate con estudiantes de tu universidad para estudiar, hacer amigos o encontrar pareja.</p>
+{% extends 'usuarios/base.html' %}
 
-    <nav>
-        <a href="{% url 'registro' %}">Registrarse</a> |
-        <a href="{% url 'login' %}">Iniciar sesión</a> |
-        <a href="{% url 'swiping' %}">Explorar Perfiles</a> |
-        <a href="{% url 'ver_grupos' %}">Ver Grupos</a>
-    </nav>
-</body>
-</html>
+{% block title %}Inicio - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1>¡Bienvenido a Sansamatch!</h1>
+    <p>Conecta con estudiantes de tu universidad para hacer amigos, estudiar o encontrar pareja.</p>
+
+    {% if user.is_authenticated %}
+        <!-- Si el usuario ha iniciado sesión, ir a la vista de swiping -->
+        <a href="{% url 'swiping' %}" class="btn btn-primary mt-3">Explorar Perfiles</a>
+    {% else %}
+        <!-- Si no ha iniciado sesión, redirigir a la página de login -->
+        <a href="{% url 'login' %}" class="btn btn-warning mt-3">Inicia Sesión para Explorar Perfiles</a>
+    {% endif %}
+</div>
+{% endblock %}

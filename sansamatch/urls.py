@@ -28,3 +28,4 @@ urlpatterns = [
     path('matches/', include('matches.urls')),    # Incluir rutas de la app matches
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
                                                   # Configuración para servir archivos multimedia en desarrollo
+                                                  

@@ -1,14 +1,20 @@
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="nombre" placeholder="Nombre del grupo" required>
-    <textarea name="descripcion" placeholder="Descripción" required></textarea>
-    <button type="submit">Crear Grupo</button>
-</form>
+{% extends 'usuarios/base.html' %}
 
-<nav>
-    <a href="{% url 'registro' %}">Registro</a>
-    <a href="{% url 'swiping' %}">Explorar Perfiles</a>
-    <a href="{% url 'crear_grupo' %}">Crear Grupo</a>
-    <a href="{% url 'ver_grupos' %}">Ver Grupos</a>
-    <a href="{% url 'lista_likes' %}">Mis Likes</a>
-</nav>
+{% block title %}Crear Grupo - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Crear un Nuevo Grupo</h2>
+
+    <form method="POST" class="form-control p-4 shadow-lg">
+        {% csrf_token %}
+        <label for="nombre">Nombre del Grupo:</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" required>
+
+        <label for="descripcion" class="mt-3">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" class="form-control" rows="4" required></textarea>
+
+        <button type="submit" class="btn btn-success mt-3">Crear Grupo</button>
+    </form>
+</div>
+{% endblock %}

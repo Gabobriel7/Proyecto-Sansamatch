@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 # Vista para el swiping de perfiles
 @login_required
 def swiping(request):
+    if not request.user.is_authenticated: # Verificar si el usuario está autenticado
+        return redirect(f'/usuarios/login/?next={request.path}')
+    
     usuario = request.user      # Obtener el usuario actual
                                 # Excluir usuarios ya "likados" o a uno mismo
     perfiles = Usuario.objects.exclude(id=usuario.id).exclude(likes_recibidos__usuario_origen=usuario)

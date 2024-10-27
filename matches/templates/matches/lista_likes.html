@@ -1,31 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tus Likes y Matches</title>
-</head>
-<body>
-    <h2>Likes Dados</h2>
-    <ul>
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Tus Likes y Matches - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Tus Likes y Matches</h2>
+
+    <h3>Likes Dados</h3>
+    <ul class="list-group mb-4">
         {% for like in likes_dados %}
-            <li>{{ like.usuario_destino.username }}</li>
+            <li class="list-group-item">
+                Le diste like a: {{ like.usuario_destino.username }}
+            </li>
         {% endfor %}
     </ul>
 
-    <h2>Matches</h2>
-    <ul>
+    <h3>Matches</h3>
+    <ul class="list-group">
         {% for match in matches %}
-            <li>{{ match.username }}</li>
+            <li class="list-group-item">
+                ¡Match con: {{ match.username }}!
+            </li>
+        {% empty %}
+            <li class="list-group-item">Aún no tienes matches.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
-
-<nav>
-    <a href="{% url 'registro' %}">Registro</a>
-    <a href="{% url 'swiping' %}">Explorar Perfiles</a>
-    <a href="{% url 'crear_grupo' %}">Crear Grupo</a>
-    <a href="{% url 'ver_grupos' %}">Ver Grupos</a>
-    <a href="{% url 'lista_likes' %}">Mis Likes</a>
-</nav>
+</div>
+{% endblock %}

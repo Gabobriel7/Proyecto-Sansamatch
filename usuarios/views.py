@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import RegistroForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from .forms import EditarPerfilForm, CambiarContraseñaForm
 
 # Vista para manejar el registro de nuevos usuarios
 def registro(request):
@@ -23,3 +26,31 @@ def home(request):
 
 def perfil(request):
     return render(request, 'usuarios/perfil.html')
+
+
+# Vista para editar el perfil del usuario
+@login_required
+def editar_perfil(request):
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡Perfil actualizado con éxito!')
+            return redirect('editar_perfil')
+    else:
+        form = EditarPerfilForm(instance=request.user)
+    return render(request, 'usuarios/editar_perfil.html', {'form': form})
+
+# Vista para cambiar la contraseña del usuario
+@login_required
+def cambiar_contraseña(request):
+    if request.method == 'POST':
+        form = CambiarContraseñaForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)  # Mantener la sesión iniciada después del cambio
+            messages.success(request, '¡Contraseña cambiada con éxito!')
+            return redirect('editar_perfil')
+    else:
+        form = CambiarContraseñaForm(user=request.user)
+    return render(request, 'usuarios/cambiar_contraseña.html', {'form': form})

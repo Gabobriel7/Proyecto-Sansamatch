@@ -1,0 +1,27 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Explorar Perfiles - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Explora Perfiles</h2>
+    <div class="row">
+        {% for perfil in perfiles %}
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-lg">
+                    <img src="{{ perfil.foto.url }}" class="card-img-top" alt="Foto de {{ perfil.username }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ perfil.username }}</h5>
+                        <p class="card-text">{{ perfil.carrera }} - {{ perfil.sede }}</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="usuario_destino" value="{{ perfil.id }}">
+                            <button type="submit" class="btn btn-primary">Like</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

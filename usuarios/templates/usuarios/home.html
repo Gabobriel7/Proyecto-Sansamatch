@@ -1,0 +1,18 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Inicio - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1>¡Bienvenido a Sansamatch!</h1>
+    <p>Conecta con estudiantes de tu universidad para hacer amigos, estudiar o encontrar pareja.</p>
+
+    {% if user.is_authenticated %}
+        <!-- Si el usuario ha iniciado sesión, ir a la vista de swiping -->
+        <a href="{% url 'swiping' %}" class="btn btn-primary mt-3">Explorar Perfiles</a>
+    {% else %}
+        <!-- Si no ha iniciado sesión, redirigir a la página de login -->
+        <a href="{% url 'login' %}" class="btn btn-warning mt-3">Inicia Sesión para Explorar Perfiles</a>
+    {% endif %}
+</div>
+{% endblock %}

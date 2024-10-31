@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+
+# Django
+db.sqlite3
+/media/
+
+# Environments
+.env
+venv/
+venv*/  # Si tu entorno virtual tiene otro nombre
+
+# Editor/IDE
+.vscode/
+*.swp
+.idea/
+*.sublime-workspace
+
+# Logs y archivos temporales
+*.log
+*.pot
+*.pyc
+.DS_Store
+Thumbs.db

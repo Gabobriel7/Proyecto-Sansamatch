@@ -1,0 +1,40 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Tus Likes y Matches - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Tus Likes y Matches</h2>
+
+    <h3>Notificaciones</h3>
+    <ul class="list-group mb-4">
+        {% for notificacion in notificaciones %}
+            <li class="list-group-item">
+                {{ notificacion.mensaje }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">No tienes nuevas notificaciones.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Likes Dados</h3>
+    <ul class="list-group mb-4">
+        {% for like in likes_dados %}
+            <li class="list-group-item">
+                Le diste like a: {{ like.usuario_destino.username }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Matches</h3>
+    <ul class="list-group">
+        {% for match in matches %}
+            <li class="list-group-item">
+                ¡Match con: {{ match.username }}!
+            </li>
+        {% empty %}
+            <li class="list-group-item">Aún no tienes matches.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

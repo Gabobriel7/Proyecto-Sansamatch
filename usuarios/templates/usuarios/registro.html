@@ -1,0 +1,30 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Registro - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Registro de Usuario</h2>
+
+    <!-- Mostrar mensajes de éxito o error -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Formulario de registro -->
+    <form method="POST" enctype="multipart/form-data" class="form-control p-4 shadow-lg">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
+    </form>
+
+    <a href="{% url 'login' %}" class="d-block mt-3">¿Ya tienes una cuenta? Inicia sesión aquí.</a>
+</div>
+{% endblock %}

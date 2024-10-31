@@ -1,0 +1,20 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Crear Grupo - Sansamatch{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Crear un Nuevo Grupo</h2>
+
+    <form method="POST" class="form-control p-4 shadow-lg">
+        {% csrf_token %}
+        <label for="nombre">Nombre del Grupo:</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" required>
+
+        <label for="descripcion" class="mt-3">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" class="form-control" rows="4" required></textarea>
+
+        <button type="submit" class="btn btn-success mt-3">Crear Grupo</button>
+    </form>
+</div>
+{% endblock %}

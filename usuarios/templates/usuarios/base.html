@@ -14,33 +14,39 @@
             <h1>Sansamatch</h1>
 
             <nav>
+                <a href="{% url 'likes_y_matches' %}" class="text-white me-3">Ver Likes y Matches</a>
                 <a href="{% url 'home' %}" class="text-white me-3">Home</a>
                 <a href="{% url 'swiping' %}" class="text-white me-3">Explorar Perfiles</a>
                 <a href="{% url 'ver_grupos' %}" class="text-white me-3">Grupos</a>
-                {% if user.is_authenticated %}
-                    <!-- Formulario para cerrar sesión -->
-                    <form method="POST" action="{% url 'logout' %}" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-link text-white p-0" style="text-decoration: none;">
-                            Cerrar Sesión
-                        </button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}" class="text-white">Iniciar Sesión</a>
-                {% endif %}
             </nav>
 
             {% if user.is_authenticated %}
-                <div class="d-flex align-items-center">
-                    <!-- Mostrar la foto de perfil del usuario autenticado -->
-                    {% if user.foto %}
-                        <img src="{{ user.foto.url }}" alt="Foto de {{ user.username }}" 
-                             class="rounded-circle" width="50" height="50">
-                    {% else %}
-                        <img src="https://via.placeholder.com/50" alt="Sin foto" class="rounded-circle">
-                    {% endif %}
-                    <span class="text-white ms-2">{{ user.username }}</span>
+                <div class="dropdown">
+                    <!-- Botón de perfil que despliega el menú -->
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" 
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if user.foto %}
+                            <img src="{{ user.foto.url }}" alt="Foto de {{ user.username }}" 
+                                 class="rounded-circle" width="30" height="30">
+                        {% else %}
+                            <img src="https://via.placeholder.com/30" alt="Sin foto" class="rounded-circle">
+                        {% endif %}
+                        <span class="ms-2">{{ user.username }}</span>
+                    </button>
+
+                    <!-- Menú desplegable del perfil -->
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{% url 'editar_perfil' %}">Editar Perfil</a></li>
+                        <li>
+                            <form method="POST" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-white">Iniciar Sesión</a>
             {% endif %}
         </div>
     </header>

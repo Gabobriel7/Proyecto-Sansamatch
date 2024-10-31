@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from .forms import EditarPerfilForm, CambiarContraseñaForm
+from .models import Usuario, Notificacion
 
 # Vista para manejar el registro de nuevos usuarios
 def registro(request):
@@ -54,3 +55,19 @@ def cambiar_contraseña(request):
     else:
         form = CambiarContraseñaForm(user=request.user)
     return render(request, 'usuarios/cambiar_contraseña.html', {'form': form})
+
+
+# Vista para mostrar los likes y matches del usuario
+def likes_y_matches(request):
+    usuario = request.user  # Obtener el usuario autenticado
+    likes_dados = usuario.likes_dados.all()  # Likes que ha dado
+    matches = [like.usuario_destino for like in likes_dados 
+               if like.usuario_destino.likes_dados.filter(usuario_destino=usuario).exists()]
+
+    notificaciones = usuario.notificaciones.filter(leida=False)  # Notificaciones no leídas
+
+    return render(request, 'usuarios/likes_y_matches.html', {
+        'likes_dados': likes_dados,
+        'matches': matches,
+        'notificaciones': notificaciones,
+    })

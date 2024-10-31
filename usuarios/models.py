@@ -10,3 +10,10 @@ class Usuario(AbstractUser):
     intereses = models.CharField(max_length=50)
     bio = models.TextField(blank=True, null=True)
     foto = models.ImageField(upload_to='fotos/', blank=True, null=True)
+
+# Modelo de Notificación
+class Notificacion(models.Model):
+    usuario = models.ForeignKey(Usuario, related_name='notificaciones', on_delete=models.CASCADE)
+    mensaje = models.CharField(max_length=255)
+    leida = models.BooleanField(default=False)  # Campo para marcar la notificación como leída
+    fecha = models.DateTimeField(auto_now_add=True)

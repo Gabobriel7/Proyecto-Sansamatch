@@ -1,0 +1,46 @@
+{% extends 'usuarios/base.html' %}
+
+{% block title %}Historial de Actividad{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Historial de Actividad</h2>
+
+    <h3>Likes Dados</h3>
+    <ul>
+        {% for like in likes_dados %}
+            <li>Le diste like a {{ like.usuario_destino.username }} el {{ like.fecha_like }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Likes Recibidos</h3>
+    <ul>
+        {% for like in likes_recibidos %}
+            <li>Recibiste un like de {{ like.usuario_origen.username }} el {{ like.fecha_like }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Matches</h3>
+    <ul>
+        {% for match in matches %}
+            <li>Hiciste match con 
+                {% if match.usuario1 == request.user %}
+                    {{ match.usuario2.username }}
+                {% else %}
+                    {{ match.usuario1.username }}
+                {% endif %}
+                el {{ match.fecha_match }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Notificaciones</h3>
+    <ul>
+        {% for notificacion in notificaciones %}
+            <li>{{ notificacion.mensaje }} - {{ notificacion.fecha }}</li>
+        {% empty %}
+            <li>No tienes notificaciones no leídas.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

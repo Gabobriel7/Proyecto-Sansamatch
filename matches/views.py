@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from usuarios.models import Usuario
-from .models import Like
+from .models import Like, Match
 from .models import Grupo
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required   
 
 # el @login_required es para que solo usuarios logeados puedan acceder
 
@@ -29,9 +29,17 @@ def swiping(request):
         perfiles = perfiles.filter(preferencia=usuario.preferencia)
     
     if request.method == 'POST':
-        usuario_destino_id = request.POST.get('usuario_destino')        # Obtener ID del usuario al que se dio like
+        usuario_destino_id = request.POST.get('usuario_destino')     # Obtener ID del usuario al que se dio like
         usuario_destino = Usuario.objects.get(id=usuario_destino_id)
-        Like.objects.create(usuario_origen=usuario, usuario_destino=usuario_destino) # Crear un nuevo like
+
+        # Crear un nuevo like
+        like, created = Like.objects.get_or_create(usuario_origen=usuario, usuario_destino=usuario_destino)
+        
+        # Comprobar si el usuario destino también dio like al usuario actual
+        if usuario_destino.likes_dados.filter(usuario_destino=usuario).exists():
+            # Si hay like mutuo, crear un Match
+            Match.objects.get_or_create(usuario1=min(usuario.id, usuario_destino.id), usuario2=max(usuario.id, usuario_destino.id))
+
         return redirect('swiping')  # Recargar para mostrar el siguiente perfil
 
     return render(request, 'matches/swiping.html', {'perfiles': perfiles})

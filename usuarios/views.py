@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from .forms import EditarPerfilForm, CambiarContraseñaForm
 from .models import Usuario, Notificacion
+from matches.models import Like, Match
+from django.db import models
+
 
 # Vista para manejar el registro de nuevos usuarios
 def registro(request):
@@ -57,17 +60,26 @@ def cambiar_contraseña(request):
     return render(request, 'usuarios/cambiar_contraseña.html', {'form': form})
 
 
-# Vista para mostrar los likes y matches del usuario
-def likes_y_matches(request):
+@login_required
+def historial_actividad(request):
     usuario = request.user  # Obtener el usuario autenticado
-    likes_dados = usuario.likes_dados.all()  # Likes que ha dado
-    matches = [like.usuario_destino for like in likes_dados 
-               if like.usuario_destino.likes_dados.filter(usuario_destino=usuario).exists()]
 
-    notificaciones = usuario.notificaciones.filter(leida=False)  # Notificaciones no leídas
+    # Obtener likes dados y recibidos
+    likes_dados = usuario.likes_dados.all()
+    likes_recibidos = usuario.likes_recibidos.all()
 
-    return render(request, 'usuarios/likes_y_matches.html', {
+    # Obtener matches (donde el usuario es usuario1 o usuario2)
+    matches = Match.objects.filter(
+        models.Q(usuario1=usuario) | models.Q(usuario2=usuario)
+    )
+
+    # Obtener notificaciones no leídas
+    notificaciones = usuario.notificaciones.filter(leida=False)
+
+    # Renderizar la plantilla con la información completa del historial de actividad
+    return render(request, 'usuarios/historial_actividad.html', {
         'likes_dados': likes_dados,
+        'likes_recibidos': likes_recibidos,
         'matches': matches,
         'notificaciones': notificaciones,
     })

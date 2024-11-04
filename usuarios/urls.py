@@ -11,5 +11,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'), # Al cerrar sesión volver al home
     path('editar-perfil/', views.editar_perfil, name='editar_perfil'),
     path('cambiar-contraseña/', views.cambiar_contraseña, name='cambiar_contraseña'),
-    path('likes-y-matches/', views.likes_y_matches, name='likes_y_matches'),
+    path('historial/', views.historial_actividad, name='historial_actividad'),
 ]

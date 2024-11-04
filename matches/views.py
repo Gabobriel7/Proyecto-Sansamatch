@@ -13,8 +13,20 @@ def swiping(request):
         return redirect(f'/usuarios/login/?next={request.path}')
     
     usuario = request.user      # Obtener el usuario actual
-                                # Excluir usuarios ya "likados" o a uno mismo
+                                # Excluir usuarios ya "likeados" o a uno mismo
     perfiles = Usuario.objects.exclude(id=usuario.id).exclude(likes_recibidos__usuario_origen=usuario)
+
+    if usuario.genero_preferido != 'Todos': # Para ver el gente del genero que elegiste
+        perfiles = perfiles.filter(genero=usuario.genero_preferido)
+
+    if usuario.sedes_preferidas:      # Filtrar según la sede preferida
+        perfiles = perfiles.filter(sede__in=usuario.sedes_preferidas)
+
+    if usuario.carreras_preferidas:   # Filtrar según la carrera preferida
+        perfiles = perfiles.filter(carrera__in=usuario.carreras_preferidas)
+
+    if usuario.preferencia:           # Filtrar según el tipo de preferencia (amistad, estudio, relación)
+        perfiles = perfiles.filter(preferencia=usuario.preferencia)
     
     if request.method == 'POST':
         usuario_destino_id = request.POST.get('usuario_destino')        # Obtener ID del usuario al que se dio like

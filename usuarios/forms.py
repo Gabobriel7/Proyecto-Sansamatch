@@ -10,6 +10,7 @@ class RegistroForm(UserCreationForm):
         required=False,
         label='Fecha de nacimiento'
     )
+    foto = forms.ImageField(required=False, label='Foto de perfil')
     numero_telefono = forms.CharField(max_length=15, required=False, label='Número de Teléfono')
     instagram = forms.CharField(max_length=30, required=False, label='Instagram')
     sede = forms.ChoiceField(choices=Usuario._meta.get_field('sede').choices, label='Sede')

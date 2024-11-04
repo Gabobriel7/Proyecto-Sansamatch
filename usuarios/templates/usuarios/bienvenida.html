@@ -1,0 +1,12 @@
+{% extends 'usuarios/base.html' %}
+{% load static %} 
+
+{% block title %}Sansamatch - Bienvenida{% endblock %}
+
+{% block content %}
+<div class="bienvenida-container">
+    <img src="{% static 'usuarios/img/logo.png' %}" alt="Logo de Sansamatch" class="logo">
+    <h1>Sansamatch</h1>
+    <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
+</div>
+{% endblock %}

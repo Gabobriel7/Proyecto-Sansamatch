@@ -19,13 +19,15 @@ from django.urls import path, include
 from django.conf import settings  
 from django.conf.urls.static import static  
 from usuarios.views import home
+from usuarios import views as usuarios_views
 
 # Definición de las rutas principales del proyecto
 urlpatterns = [
-    path('admin/', admin.site.urls),              # Ruta para el panel de administración
-    path('', home, name='home'),                  # Ruta de la Página Home
-    path('usuarios/', include('usuarios.urls')),  # Incluir rutas de la app usuarios
-    path('matches/', include('matches.urls')),    # Incluir rutas de la app matches
+    path('admin/', admin.site.urls),                                 # Ruta para el panel de administración
+    path('home/', usuarios_views.home, name='home'),                 # Ruta de la Página Home
+    path('', usuarios_views.pantalla_bienvenida, name='bienvenida'), # Página inicial (bienvenida)
+    path('usuarios/', include('usuarios.urls')),                     # Incluir rutas de la app usuarios
+    path('matches/', include('matches.urls')),                       # Incluir rutas de la app matches
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
-                                                  # Configuración para servir archivos multimedia en desarrollo
+                                      # Configuración para servir archivos multimedia en desarrollo
                                                   

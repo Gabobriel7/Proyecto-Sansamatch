@@ -24,7 +24,17 @@ def registro(request):
         
     return render(request, 'usuarios/registro.html', {'form': form})
 
+
+def pantalla_bienvenida(request):
+    # Redirigir al home si el usuario está autenticado
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    # Mostrar la pantalla de bienvenida para usuarios no autenticados
+    return render(request, 'usuarios/bienvenida.html')
+
 # Vista para manejar la página principal
+@login_required
 def home(request):
     return render(request, 'usuarios/home.html')         # Renderiza la plantilla de la pagina principal
 
